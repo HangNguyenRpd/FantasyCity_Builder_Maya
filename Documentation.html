@@ -1,0 +1,71 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module Fantasy_City</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Fantasy_City</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/run/media/s5080488/KON/Python/Submission/Fantasy_City.py">/run/media/s5080488/KON/Python/Submission/Fantasy_City.py</a></font></td></tr></table>
+    <p><tt>This&nbsp;script&nbsp;generates&nbsp;futuristic&nbsp;flying&nbsp;terrains&nbsp;and&nbsp;cities&nbsp;from&nbsp;basic&nbsp;3D&nbsp;geometries.<br>
+For&nbsp;terrains,&nbsp;the&nbsp;script&nbsp;apply&nbsp;Perlin&nbsp;noise&nbsp;on&nbsp;a&nbsp;cone&nbsp;with&nbsp;three&nbsp;layers&nbsp;of&nbsp;height&nbsp;maps.&nbsp;Users&nbsp;are&nbsp;allowed&nbsp;to&nbsp;control&nbsp;these&nbsp;maps'&nbsp;coverage,&nbsp;intensity(the&nbsp;bumpiness)&nbsp;and&nbsp;level(how&nbsp;high&nbsp;is&nbsp;the&nbsp;map).<br>
+For&nbsp;the&nbsp;port,&nbsp;this&nbsp;script&nbsp;builds&nbsp;a&nbsp;curve&nbsp;based&nbsp;on&nbsp;the&nbsp;base&nbsp;terrain's&nbsp;vertices,&nbsp;then&nbsp;extrudes&nbsp;a&nbsp;cube&nbsp;along&nbsp;that&nbsp;curve.&nbsp;Users&nbsp;are&nbsp;allowed&nbsp;to&nbsp;control&nbsp;how&nbsp;the&nbsp;port&nbsp;can&nbsp;be&nbsp;built.<br>
+The&nbsp;bridges&nbsp;from&nbsp;the&nbsp;port&nbsp;to&nbsp;the&nbsp;base&nbsp;terrain,&nbsp;the&nbsp;highways&nbsp;and&nbsp;streets&nbsp;are&nbsp;made&nbsp;with&nbsp;the&nbsp;same&nbsp;principle.&nbsp;Users&nbsp;are&nbsp;allowed&nbsp;to&nbsp;enter&nbsp;number&nbsp;of&nbsp;bridges.<br>
+For&nbsp;cities,&nbsp;the&nbsp;script&nbsp;layouts&nbsp;buildings&nbsp;by&nbsp;picking&nbsp;vertices&nbsp;on&nbsp;the&nbsp;base&nbsp;terrain&nbsp;that&nbsp;do&nbsp;not&nbsp;collide&nbsp;with&nbsp;highways&nbsp;and&nbsp;streets'&nbsp;curves,&nbsp;then&nbsp;grows&nbsp;a&nbsp;building&nbsp;from&nbsp;there.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-actionProc"><strong>actionProc</strong></a>(_height, _radius, _sharpness, _intensity, _coverage, _level, _port_Circle, _port_Scale, _num_Bridge, _)</dt><dd><tt>generates&nbsp;city&nbsp;after&nbsp;clicking&nbsp;OK&nbsp;button<br>
+_height&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;terrain&nbsp;height&nbsp;value&nbsp;from&nbsp;GUI<br>
+_radius&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;terrain&nbsp;radius&nbsp;value&nbsp;from&nbsp;GUI<br>
+_sharpness&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;overall&nbsp;texture&nbsp;sharpness&nbsp;from&nbsp;GUI<br>
+_intensity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;intensity(bumpiness)&nbsp;of&nbsp;3&nbsp;map&nbsp;layers&nbsp;from&nbsp;GUI<br>
+_coverage&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;map&nbsp;coverage&nbsp;of&nbsp;3&nbsp;layers&nbsp;from&nbsp;GUI<br>
+_level&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;height&nbsp;of&nbsp;3&nbsp;map&nbsp;layers&nbsp;from&nbsp;GUI<br>
+_port_Circle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;ow&nbsp;much&nbsp;the&nbsp;port&nbsp;rounds&nbsp;the&nbsp;terrain&nbsp;from&nbsp;GUI<br>
+_port_Scale&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;scale&nbsp;factor&nbsp;of&nbsp;the&nbsp;port&nbsp;from&nbsp;GUI<br>
+_num_Bridge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;number&nbsp;of&nbsp;bridges&nbsp;from&nbsp;GUI</tt></dd></dl>
+ <dl><dt><a name="-createUI"><strong>createUI</strong></a>()</dt><dd><tt>This&nbsp;function&nbsp;creates&nbsp;GUI&nbsp;for&nbsp;user&nbsp;to&nbsp;enter&nbsp;input</tt></dd></dl>
+ <dl><dt><a name="-makeBridge"><strong>makeBridge</strong></a>(num_Bridge, terrain, portBlock, sX, port_Scale)</dt><dd><tt>builds&nbsp;bridges&nbsp;from&nbsp;the&nbsp;port&nbsp;to&nbsp;the&nbsp;terrain<br>
+num_Bridge&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;number&nbsp;of&nbsp;bridges<br>
+terrain&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;the&nbsp;base&nbsp;terrain<br>
+portBlock&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;the&nbsp;created&nbsp;port<br>
+sX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;terrain's&nbsp;subdivision&nbsp;X<br>
+port_Scale&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;scale&nbsp;factor&nbsp;of&nbsp;the&nbsp;port<br>
+return&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;name&nbsp;of&nbsp;list&nbsp;contaning&nbsp;bridges</tt></dd></dl>
+ <dl><dt><a name="-makeBuilding"><strong>makeBuilding</strong></a>(terrain, sX, sZ, coverage)</dt><dd><tt>builds&nbsp;buildings&nbsp;on&nbsp;the&nbsp;terrain&nbsp;without&nbsp;colliding&nbsp;with&nbsp;the&nbsp;highways&nbsp;and&nbsp;streets<br>
+terrain&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;the&nbsp;base&nbsp;terrain<br>
+sX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;terrain's&nbsp;subdivision&nbsp;X<br>
+sZ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;terrain's&nbsp;subdivision&nbsp;Z<br>
+coverage&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;height&nbsp;map&nbsp;coverage&nbsp;(user&nbsp;input)<br>
+return&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;name&nbsp;of&nbsp;building&nbsp;group&nbsp;(string)</tt></dd></dl>
+ <dl><dt><a name="-makePort"><strong>makePort</strong></a>(terrain, sX, sZ, port_Circle, port_Scale)</dt><dd><tt>builds&nbsp;the&nbsp;port&nbsp;around&nbsp;terrain<br>
+terrain&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;the&nbsp;base&nbsp;terrain<br>
+sX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;terrain's&nbsp;subdivision&nbsp;X<br>
+sZ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;terrain's&nbsp;subdivision&nbsp;Z<br>
+port_Circle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;how&nbsp;much&nbsp;the&nbsp;port&nbsp;rounds&nbsp;the&nbsp;terrain<br>
+port_Scale&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;scale&nbsp;factor&nbsp;of&nbsp;the&nbsp;port<br>
+return&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;name&nbsp;of&nbsp;the&nbsp;port&nbsp;curve&nbsp;and&nbsp;port&nbsp;block</tt></dd></dl>
+ <dl><dt><a name="-makeStreet"><strong>makeStreet</strong></a>(terrain, sX, sZ, coverage)</dt><dd><tt>build&nbsp;streets&nbsp;and&nbsp;highways&nbsp;across&nbsp;terrain<br>
+terrain&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;the&nbsp;base&nbsp;terrain<br>
+sX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;terrain's&nbsp;subdivision&nbsp;X<br>
+sZ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;terrain's&nbsp;subdivision&nbsp;Z<br>
+coverage&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;height&nbsp;map&nbsp;coverage&nbsp;(user&nbsp;input)<br>
+return&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;name&nbsp;of&nbsp;street&nbsp;group&nbsp;(string)</tt></dd></dl>
+ <dl><dt><a name="-modifyTerrain"><strong>modifyTerrain</strong></a>(terrain, sX, sY, sZ, sharpness, intensity, coverage, level)</dt><dd><tt>creates&nbsp;terrain&nbsp;texture&nbsp;on&nbsp;the&nbsp;cone<br>
+terrain&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;the&nbsp;cone<br>
+sX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;the&nbsp;cone's&nbsp;subvision&nbsp;X<br>
+sY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;the&nbsp;cone's&nbsp;subvision&nbsp;Y<br>
+sZ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;the&nbsp;cone's&nbsp;subvision&nbsp;Z<br>
+sharpness&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;overall&nbsp;texture&nbsp;sharpness<br>
+intensity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;intensity&nbsp;of&nbsp;3&nbsp;map&nbsp;layers<br>
+coverage&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;coverage&nbsp;of&nbsp;3&nbsp;map&nbsp;layers<br>
+level&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;height&nbsp;of&nbsp;3&nbsp;map&nbsp;layers</tt></dd></dl>
+</td></tr></table>
+</body></html>
